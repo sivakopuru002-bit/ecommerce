@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlipShop - Online Shopping</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="header">
+    <div class="logo" onclick="goHome()">Flip<span>Shop</span></div>
+
+    <div class="search">
+        <input id="searchInput" type="text"
+               placeholder="Search products..."
+               onkeyup="searchProducts()">
+        <button>🔍</button>
+    </div>
+
+    <button class="header-btn" onclick="showAccount()">👤 Account</button>
+    <button class="header-btn" onclick="showCart()">🛒 Cart
+        <b id="cartCount">0</b>
+    </button>
+</header>
+
+<nav class="nav">
+    <button onclick="filterCategory('All')">🏠 Home</button>
+    <button onclick="filterCategory('Jeans')">👖 Jeans</button>
+    <button onclick="filterCategory('Shirts')">👔 Shirts</button>
+    <button onclick="filterCategory('Clothes')">👕 Clothes</button>
+    <button onclick="filterCategory('Electronics')">💻 Electronics</button>
+    <button onclick="filterCategory('Mobiles')">📱 Mobiles</button>
+    <button onclick="filterCategory('TVs')">📺 TVs</button>
+    <button onclick="filterCategory('Toys')">🧸 Toys</button>
+</nav>
+
+<main id="homePage">
+
+    <!-- 5 IMAGE SCROLLING BANNER -->
+    <section class="slider">
+        <div class="slides" id="slides">
+
+            <div class="slide">
+                <img src="https://images.unsplash.com/photo-1607083206968-13611e3d76db">
+                <div class="slide-text">
+                    <h1>BIG SHOPPING SALE</h1>
+                    <p>Up to 70% OFF</p>
+                    <button onclick="scrollProducts()">SHOP NOW</button>
+                </div>
+            </div>
+
+            <div class="slide">
+                <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8">
+                <div class="slide-text">
+                    <h1>FASHION FESTIVAL</h1>
+                    <p>Jeans • Shirts • Clothes</p>
+                    <button onclick="filterCategory('Clothes')">SHOP FASHION</button>
+                </div>
+            </div>
+
+            <div class="slide">
+                <img src="https://images.unsplash.com/photo-1550009158-9ebf69173e03">
+                <div class="slide-text">
+                    <h1>ELECTRONICS SALE</h1>
+                    <p>Latest gadgets at great prices</p>
+                    <button onclick="filterCategory('Electronics')">SHOP ELECTRONICS</button>
+                </div>
+            </div>
+
+            <div class="slide">
+                <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9">
+                <div class="slide-text">
+                    <h1>MOBILE FESTIVAL</h1>
+                    <p>Smartphones starting ₹9,999</p>
+                    <button onclick="filterCategory('Mobiles')">SHOP MOBILES</button>
+                </div>
+            </div>
+
+            <div class="slide">
+                <img src="https://images.unsplash.com/photo-1596461404969-9ae70f2830c1">
+                <div class="slide-text">
+                    <h1>TOY WORLD</h1>
+                    <p>Fun for every child</p>
+                    <button onclick="filterCategory('Toys')">SHOP TOYS</button>
+                </div>
+            </div>
+
+        </div>
+
+        <button class="prev" onclick="changeSlide(-1)">❮</button>
+        <button class="next" onclick="changeSlide(1)">❯</button>
+
+        <div class="dots" id="dots"></div>
+    </section>
+
+
+    <!-- OFFER CARDS -->
+
+    <section class="offers">
+
+        <div class="offer">
+            <div>👖</div>
+            <h2>Jeans Sale</h2>
+            <p>Up to 60% OFF</p>
+            <button onclick="filterCategory('Jeans')">Explore</button>
+        </div>
+
+        <div class="offer">
+            <div>📱</div>
+            <h2>Mobiles</h2>
+            <p>Starting ₹9,999</p>
+            <button onclick="filterCategory('Mobiles')">Explore</button>
+        </div>
+
+        <div class="offer">
+            <div>📺</div>
+            <h2>Smart TVs</h2>
+            <p>Up to 50% OFF</p>
+            <button onclick="filterCategory('TVs')">Explore</button>
+        </div>
+
+        <div class="offer">
+            <div>🧸</div>
+            <h2>Toys</h2>
+            <p>Starting ₹299</p>
+            <button onclick="filterCategory('Toys')">Explore</button>
+        </div>
+
+    </section>
+
+
+    <!-- PRODUCTS -->
+
+    <section class="products-section" id="productsSection">
+
+        <div class="section-heading">
+            <h2 id="sectionTitle">All Products</h2>
+            <p>Discover amazing products at great prices</p>
+        </div>
+
+        <div class="products" id="productContainer"></div>
+
+    </section>
+
+</main>
+
+
+<!-- PRODUCT DETAILS -->
+
+<section id="productPage" class="page hidden">
+
+    <button class="back-button" onclick="goHome()">← Back to Home</button>
+
+    <div class="product-detail">
+
+        <div class="detail-image">
+            <img id="detailImage" src="" alt="Product">
+        </div>
+
+        <div class="detail-info">
+
+            <span id="detailCategory" class="category-label"></span>
+
+            <h1 id="detailName"></h1>
+
+            <div class="rating">⭐⭐⭐⭐⭐ 4.5</div>
+
+            <div class="detail-price">
+                ₹<span id="detailPrice"></span>
+                <del id="detailOldPrice"></del>
+            </div>
+
+            <p id="detailDescription"></p>
+
+            <div id="sizeArea">
+                <label><b>Choose Size:</b></label>
+
+                <select id="sizeSelect">
+                    <option>S</option>
+                    <option>M</option>
+                    <option>L</option>
+                    <option>XL</option>
+                    <option>XXL</option>
+                </select>
+            </div>
+
+            <div class="quantity-box">
+                <b>Quantity:</b>
+
+                <button onclick="changeQuantity(-1)">−</button>
+
+                <span id="quantity">1</span>
+
+                <button onclick="changeQuantity(1)">+</button>
+            </div>
+
+            <button class="cart-button" onclick="addCurrentProduct()">
+                🛒 ADD TO CART
+            </button>
+
+            <button class="buy-button" onclick="buyNow()">
+                ⚡ BUY NOW
+            </button>
+
+        </div>
+    </div>
+
+
+    <!-- RELATED PRODUCTS -->
+
+    <section class="related-section">
+        <h2>Related Products</h2>
+        <p>More products you may like</p>
+
+        <div class="products" id="relatedProducts"></div>
+    </section>
+
+</section>
+
+
+<!-- CART -->
+
+<section id="cartPage" class="page hidden">
+
+    <button class="back-button" onclick="goHome()">
+        ← Continue Shopping
+    </button>
+
+    <h1>🛒 Shopping Cart</h1>
+
+    <div id="cartItems"></div>
+
+    <div class="cart-total">
+        <h2>Price Details</h2>
+
+        <p>
+            Total Items:
+            <b id="totalItems">0</b>
+        </p>
+
+        <h2>
+            Total Amount:
+            ₹<span id="cartTotal">0</span>
+        </h2>
+
+        <button onclick="showCheckout()">
+            Proceed to Checkout →
+        </button>
+    </div>
+
+</section>
+
+
+<!-- CHECKOUT -->
+
+<section id="checkoutPage" class="page hidden">
+
+    <button class="back-button" onclick="showCart()">
+        ← Back to Cart
+    </button>
+
+    <h1>💳 Checkout</h1>
+
+    <div class="checkout">
+
+        <div class="checkout-box">
+
+            <h2>👤 Account / Delivery Details</h2>
+
+            <input id="customerName"
+                   placeholder="Full Name">
+
+            <input id="customerEmail"
+                   type="email"
+                   placeholder="Email Address">
+
+            <input id="customerPhone"
+                   type="tel"
+                   placeholder="Mobile Number">
+
+            <textarea id="customerAddress"
+                      placeholder="Full Delivery Address"></textarea>
+
+            <input id="customerCity"
+                   placeholder="City">
+
+            <input id="customerPincode"
+                   placeholder="Pincode">
+
+        </div>
+
+
+        <div class="checkout-box">
+
+            <h2>💳 Payment Method</h2>
+
+            <select id="paymentMethod"
+                    onchange="paymentChanged()">
+
+                <option value="">Select Payment Method</option>
+                <option value="UPI">UPI</option>
+                <option value="Card">Credit / Debit Card</option>
+                <option value="COD">Cash on Delivery</option>
+                <option value="Net Banking">Net Banking</option>
+
+            </select>
+
+            <div id="paymentDetails"></div>
+
+            <hr>
+
+            <h2>
+                Order Total:
+                ₹<span id="checkoutTotal">0</span>
+            </h2>
+
+            <button class="place-order"
+                    onclick="placeOrder()">
+                🛍️ PLACE ORDER
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ACCOUNT -->
+
+<section id="accountPage" class="page hidden">
+
+    <button class="back-button" onclick="goHome()">
+        ← Back
+    </button>
+
+    <div class="account">
+
+        <div class="account-avatar">👤</div>
+
+        <h1>My Account</h1>
+
+        <p>Login to manage your FlipShop account</p>
+
+        <input placeholder="Enter Name">
+
+        <input type="email"
+               placeholder="Enter Email">
+
+        <input type="password"
+               placeholder="Enter Password">
+
+        <button onclick="login()">
+            LOGIN
+        </button>
+
+    </div>
+
+</section>
+
+
+<footer>
+
+    <div>
+        <h2>FlipShop</h2>
+        <p>Your favourite online shopping destination.</p>
+    </div>
+
+    <div>
+        <h3>Categories</h3>
+        <p>Fashion</p>
+        <p>Electronics</p>
+        <p>Mobiles</p>
+        <p>TVs</p>
+    </div>
+
+    <div>
+        <h3>Customer Service</h3>
+        <p>Help Center</p>
+        <p>Returns</p>
+        <p>Contact Us</p>
+    </div>
+
+    <div>
+        <h3>Follow Us</h3>
+        <p>Facebook</p>
+        <p>Instagram</p>
+        <p>YouTube</p>
+    </div>
+
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>
